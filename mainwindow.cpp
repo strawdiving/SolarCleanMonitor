@@ -20,6 +20,9 @@ MainWindow* MainWindow::_create()
     return _instance;
 }
 
+/*
+ *  启动TCP Server侦听，连接server和主界面的信号与槽
+ */
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -50,6 +53,9 @@ MainWindow::MainWindow(QWidget *parent) :
     show();
 }
 
+/*
+ * 新建对应的RobertWidget和StatusWidget对象，在界面上显示已连接的robert，设置statusWidget为新连接的robert对应的状态信息
+ * */
 void MainWindow::_linkConnected(int robertId)
 {
     RobertWidget* robert = new RobertWidget(robertId);
@@ -73,6 +79,9 @@ void MainWindow::_linkConnected(int robertId)
     connect(robert,&RobertWidget::selected,this,&MainWindow::_robertSelected);
 }
 
+/*
+ *  根据Id判断哪个robert的连接断开，在界面上移除，改变当前的statusWidget
+ * */
 void MainWindow::_linkDisconnected( int robertId)
 {
     qDebug()<<"MainWindow::_linkDisconnected"<<robertId;
@@ -101,7 +110,10 @@ void MainWindow::_linkDisconnected( int robertId)
     }
 }
 
-
+/*
+ * 点击robert后的响应槽，当前选中robert变换样式，且显示对应的statusWidget；
+   发送solar_clean_control消息包
+ */
 void MainWindow::_robertSelected()
 {
    RobertWidget* robert = qobject_cast<RobertWidget*>(sender());
@@ -128,6 +140,9 @@ void MainWindow::_robertSelected()
    }
 }
 
+/*
+ * 根据Id判断信号的发送者，让对应的robertWidget和statusWidget来处理消息
+ * */
 void MainWindow::_receiveBytes(int robertId, mavlink_message_t message)
 {
     foreach (RobertWidget* robert, _mapRobert2Status.keys()) {

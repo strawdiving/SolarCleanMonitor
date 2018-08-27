@@ -14,6 +14,9 @@ CommunicationServer::CommunicationServer(QObject *parent, int numConnections)
     Q_UNUSED(j);
 }
 
+/*
+ * 创建子线程，创建运行在子线程中的对象，连接该对象和server对象的信号与槽，启动线程
+ */
 void CommunicationServer::incomingConnection(qintptr socketDescriptor)
 {
     if(_mapId2Worker.size() > maxPendingConnections()) {
@@ -39,6 +42,9 @@ void CommunicationServer::incomingConnection(qintptr socketDescriptor)
     _mapWorker2Thread.insert(worker,thread);
 }
 
+/*
+ * 找到发送者，转发socketConnected信号，断开与worker的socketConnected信号的连接
+*/
 void CommunicationServer::_socketConnected(int id)
 {    
     SocketThreadWorker* worker = qobject_cast<SocketThreadWorker*>(sender());
@@ -47,6 +53,9 @@ void CommunicationServer::_socketConnected(int id)
     disconnect(worker,&SocketThreadWorker::socketConnected,this,&CommunicationServer::_socketConnected);
 }
 
+/*
+ *   找到信号发送者，转发socketDisconnected信号
+ */
 void CommunicationServer::_socketDisconnect(const int id)
 {
     SocketThreadWorker* worker = qobject_cast<SocketThreadWorker*>(sender());
@@ -63,11 +72,17 @@ void CommunicationServer::_socketDisconnect(const int id)
     emit socketDisconnected(id);
 }
 
+/*
+ *  转发bytesReceived信号
+*/
 void CommunicationServer::_receiveBytes(int robertId, mavlink_message_t message)
 {
     emit bytesReceived(robertId,message);
 }
 
+/*
+ *     找到发送者Id对应的worker，连接sendMessage信号与槽，发送sendMessage信号
+ */
 void CommunicationServer::_sendMessage(int robertId,mavlink_message_t message)
 {
     foreach (int id, _mapId2Worker.keys()) {

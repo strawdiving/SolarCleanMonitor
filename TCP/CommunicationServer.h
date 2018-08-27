@@ -1,6 +1,10 @@
 #ifndef COMMUNICATIONSERVER_H
 #define COMMUNICATIONSERVER_H
 
+/**
+ * 管理TCP通讯和子线程，处理子线程和主线程（UI线程）的交互。
+ **/
+
 #include <QTcpServer>
 #include "SocketThreadWorker.h"
 
@@ -32,7 +36,9 @@ signals:
 
 
 private:
+    /// key: Id,    value: Worker
     QMap<int,SocketThreadWorker*> _mapId2Worker;
+    /// Key: worker,    value: thread
     QMap<SocketThreadWorker*,QThread*> _mapWorker2Thread;
 };
 

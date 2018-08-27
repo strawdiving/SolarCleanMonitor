@@ -12,6 +12,9 @@ SocketThreadWorker::SocketThreadWorker(qintptr socketDescriptor,QObject *parent)
 
 }
 
+/*
+ * 创建socket对象，连接socket和worker对象的信号与槽；创建并启动定时器
+ */
 void SocketThreadWorker::init()
 {
     _statusTimer = new QTimer;
@@ -44,6 +47,9 @@ void SocketThreadWorker::_statusUpdate(void)
     }
 }
 
+/*
+ * 响应socket的readyRead信号
+ */
 void SocketThreadWorker::_receiveMessage()
 {
     qint64 blockSize = _tcpSocket->bytesAvailable();
@@ -116,6 +122,9 @@ void SocketThreadWorker::_receiveMessage()
     }
 }
 
+/*
+ * 发送Mavlink消息包，socket写数据
+ */
 void SocketThreadWorker::sendMessage(mavlink_message_t message)
 {
     static uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
@@ -128,6 +137,9 @@ void SocketThreadWorker::sendMessage(mavlink_message_t message)
    _tcpSocket->write((const char*)buffer, len);
 }
 
+/*
+ *响应socket的disconnected信号
+ */
 void SocketThreadWorker::_disconnect()
 {
     qDebug()<<"disconnected";
@@ -136,6 +148,9 @@ void SocketThreadWorker::_disconnect()
     //_statusTimer->stop();
 }
 
+/*
+ *响应socket的error信号
+ */
  void SocketThreadWorker::_errorMsg(QAbstractSocket:: SocketError socketError)
  {
      qDebug()<<"error: "<<socketError;

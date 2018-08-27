@@ -1,6 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+/**
+ * 主界面，显示已连接的roberts及其对应的status。
+ **/
+
 //#define M_PI (3.14159265358979323846)
 
 #include <QMainWindow>
@@ -30,6 +34,7 @@ public:
     void closeEvent(QCloseEvent* event);
 
 signals:
+    /// 在_robertSelected()槽里发送控制消息
     void sendMessage(int robertId,mavlink_message_t message);
 
 private slots:
@@ -46,12 +51,15 @@ protected:
 
 private:
     CommunicationServer* _tcpServer;
+    /// 当前选中的robert
     RobertWidget* _currentRobert;
 
     Ui::MainWindow *ui;    
     QGridLayout* layout;
+    /// _nullWgt的Id默认为0
     StatusWidget* _nullWgt;
 
+    /// key: RobertWidget,    value: StatusWidget
     QMap<RobertWidget*,StatusWidget*> _mapRobert2Status;
 };
 
