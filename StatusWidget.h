@@ -1,6 +1,10 @@
 #ifndef STATUSWIDGET_H
 #define STATUSWIDGET_H
 
+/**
+ * 主界面上显示的，有唯一id的Robot对应的状态信息的widget
+ **/
+
 #include <QWidget>
 #include <common/mavlink.h>
 
