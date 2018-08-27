@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/qmlImages">
+        <file>qmlImages/robot.png</file>
+        <file>qmlImages/robert1.PNG</file>
+    </qresource>
+</RCC>

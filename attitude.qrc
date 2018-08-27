@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/attitude">
+        <file>attitude/background-new.jpg</file>
+        <file>attitude/wifi.png</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>

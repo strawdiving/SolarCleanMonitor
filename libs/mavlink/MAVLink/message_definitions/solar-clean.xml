@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<mavlink>
+  <include>common.xml</include>
+  <enums>
+        <enum name="SOLAR_CLEAN_MOVE">
+             <description>These values define the type of sloar cleaner status.</description>
+              <entry value="0" name="SOLAR_CLEAN_STOP">
+                  <description>sloar clean stopped</description>
+              </entry>
+              <entry value="1" name="SOLAR_CLEAN_HIBERNATE">
+                  <description>sloar clean hibernate</description>
+              </entry>
+              <entry value="2" name="SOLAR_CLEAN_FORWARD">
+                  <description>sloar clean forward from origin position</description>
+              </entry>
+              <entry value="3" name="SOLAR_CLEAN_BACK">
+                  <description>solar clean reverse back to origin position</description>
+              </entry>
+              <entry value="4" name="SOLAR_CLEAN_ORIGION_REACHED">
+                  <description>sloar clean  reach the origin position</description>
+              </entry>
+              <entry value="5" name="SOLAR_CLEAN_END_REACHED">
+                  <description>sloar clean  reach the origin position</description>
+              </entry>
+              <entry value="255" name="SOLAR_CLEAN_FAULT">
+                  <description>solar clean error hanppen</description>
+              </entry>
+          </enum>
+          <enum name="SOLAR_CLEAN_CLEANER">
+              <entry value="0" name="SOLAR_CLEAN_CLEANER_STOP">
+                  <description>cleaner stopped</description>
+              </entry>
+              <entry value="1" name="SOLAR_CLEAN_CLEANER_RUNNING_FORWARD">
+                  <description>cleaner forward cleaning </description>
+              </entry>
+              <entry value="2" name="SOLAR_CLEAN_CLEANER_RUNNING_REVERSE">
+                  <description>cleaner reverse cleaning</description>
+              </entry> 
+              <entry value="255" name="SOLAR_CLEAN_CLEANER_FAULT">
+                  <description>solar clean cleaner error hanppen</description>
+              </entry>
+          </enum>
+  </enums>
+  <messages>
+         <message id="180" name="SOLAR_CLEAN_STATUS">
+             <description>status of the solar_cleaner.</description>
+                 <field type="uint8_t" name="move_mode_status">status the move of solar clean,check enum SLOAR_CLEAN_STATE.</field>
+                 <field type="uint8_t" name="move_speed">the speed of solar clean.</field>
+                 <field type="uint8_t" name="cleaner_status">status of the cleaner,check enum SLOAR_CLEAN_CLEANER</field>
+                 <field type="uint16_t" name="position">Position of the solar_cleaner relative to home position(unit:cm).</field>
+                 <field type="uint32_t" name="running_time">running time boot/reboot(uint:s).</field>
+                 <field type="uint8_t[2]" name="working_alarm_now">the default working alarm after hibernate,24 format</field>
+                 <field type="uint16_t" name="voltage_battery">Battery voltage, in millivolts (1 = 1 millivolt)</field>
+                 <field type="int16_t" name="current_battery">Battery current, in 10*milliamperes (1 = 10 milliampere), -1: autopilot does not measure the current</field>
+                 <field type="int8_t" name="battery_remaining">Remaining battery energy: (0%: 0, 100%: 100), -1: autopilot estimate the remaining battery</field>
+         </message>
+         <message id="181" name="SOLAR_CLEAN_CONTROL">
+               <description>control of the solar clean.</description>
+               <field type="uint8_t" name="move_mode_control">control the move of solar clean,check enum SLOAR_CLEAN_STATE.</field>
+               <field type="uint8_t" name="move_speed_control">control the speed of solar clean.</field>
+               <field type="uint8_t" name="cleaner_control">control of the cleaner,check enum SLOAR_CLEAN_CLEANER</field>
+               <field type="uint8_t[2]" name="set_working_alarm">set the working alarm after hibernate,24 format</field>
+           </message>
+         <message id="182" name="SOLAR_CLEAN_TEMPERATURE">
+               <description>solar clean Temperature detect.</description>
+               <field type="uint8_t" name="number_of_temperature">the points of Temperature</field>
+               <field type="float[30]" name="temperature">Temperature in Celsius</field>
+           </message>
+         <message id="183" name="SOLAR_CLEAN_COMM">
+               <description>solar clean communication.</description>
+               <field type="char[10]" name="wifi_name">wifi spot name</field>
+               <field type="char[16]" name="wifi_passwd">wifi spot password</field>
+               <field type="char[16]" name="server_ip">server ip</field>
+               <field type="char[16]" name="server_tcp_port">server tcp port</field>
+         </message> 
+         <message id="184" name="SOLAR_CLEAN_IO">
+               <description>IO info of solar clean.</description>
+               <field type="uint8_t" name="PLC_DI">PLC digital input </field>
+               <field type="uint8_t" name="PLC_DO">PLC digital output</field>
+           </message>
+         <message id="185" name="SOLAR_CLEAN_PARAMATER">
+               <description>some basic info of the machine.</description>
+               <field type="uint16_t" name="length_of_working_panel">set the length of the working panel(uint:cm)</field>
+               <field type="uint16_t" name="width_of_solar_clean">set the width of the solar machine</field>
+               <field type="uint32_t" name="heartbeat_cycle">set the heartbeat cycle time of the solar machine,unit:ms</field>
+           </message> 
+    
+  </messages>
+</mavlink>
