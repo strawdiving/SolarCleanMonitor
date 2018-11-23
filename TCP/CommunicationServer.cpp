@@ -19,6 +19,7 @@ CommunicationServer::CommunicationServer(QObject *parent, int numConnections)
  */
 void CommunicationServer::incomingConnection(qintptr socketDescriptor)
 {
+    // 超过最大连接时，断开新的socket
     if(_mapId2Worker.size() > maxPendingConnections()) {
         QTcpSocket* socket = new QTcpSocket;
         socket->setSocketDescriptor(socketDescriptor);

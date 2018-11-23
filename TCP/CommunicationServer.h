@@ -16,6 +16,9 @@ class CommunicationServer : public QTcpServer
 public:
     CommunicationServer(QObject *parent = 0,int numConnections=10);
 
+protected:
+    void incomingConnection(qintptr socketDescriptor) override;
+
 private slots:
     void _socketDisconnect(const int id);
     void _receiveBytes(int robertId, mavlink_message_t message);
@@ -24,16 +27,12 @@ public slots:
     void _socketConnected(int id);
     void _sendMessage(int robertId,mavlink_message_t message);
 
-protected:
-    void incomingConnection(qintptr socketDescriptor) override;
-
 signals:
     void initWorker(void);
     void socketConnected(int id);
     void socketDisconnected(int id);
     void bytesReceived(int robertId, mavlink_message_t message);
     void sendMessage(mavlink_message_t message);
-
 
 private:
     /// key: Id,    value: Worker
