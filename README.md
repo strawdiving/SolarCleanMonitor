@@ -1,8 +1,11 @@
 # SolarCleanMonitor
 A demo for multithread monitor of solar-clean robots
 
-[QTCPServer]: http://doc.qt.io/archives/qt-5.8/qtcpserver.html	"QTCPServer"
-[多线程Server]: http://doc.qt.io/archives/qt-5.8/qtnetwork-threadedfortuneserver-example.html	"多线程Server"
+[QTCPServer][1]
+[多线程Server][2]  
+
+[1]:http://doc.qt.io/archives/qt-5.8/qtcpserver.html  
+[2]:http://doc.qt.io/archives/qt-5.8/qtnetwork-threadedfortuneserver-example.html  
 
 需求：
 
@@ -33,11 +36,7 @@ connect(server,SLOT(newConnection),server,SLOT(slotFunc))，在server的响应�
 
 注：返回的QTcpSocket对象不能在别的thread中使用。如果想在其他thread使用，要重载incommingConnection函数。要记录哪个用户连接或者要进行相应处理，就需要重写该函数。一般会新建一个QTcpServer的派生类。
 
-参考
-
-[Threaded Fortune Server]: http://doc.qt.io/archives/qt-5.8/qtnetwork-threadedfortuneserver-example.html	"Threaded Fortune Server"
-
-的例子，我们将实现一个QTcpServer的子类，它在另一个线程中启动每个socket连接。
+参考 [Threaded Fortune Server](http://doc.qt.io/archives/qt-5.8/qtnetwork-threadedfortuneserver-example.html "Threaded Fortune Server")  的例子，我们将实现一个QTcpServer的子类，它在另一个线程中启动每个socket连接。
 
 首先，我们将实现一个QTcpServer的子类QCommunicationServer，
 
