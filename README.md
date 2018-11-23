@@ -1,8 +1,8 @@
 # SolarCleanMonitor
 A demo for multithread monitor of solar-clean robots
 
-[QTCPServer]: http://doc.qt.io/archives/qt-5.8/qtcpserver.html
-[多线程Server]: http://doc.qt.io/archives/qt-5.8/qtnetwork-threadedfortuneserver-example.html
+[QTCPServer]: http://doc.qt.io/archives/qt-5.8/qtcpserver.html	"QTCPServer"
+[多线程Server]: http://doc.qt.io/archives/qt-5.8/qtnetwork-threadedfortuneserver-example.html	"多线程Server"
 
 需求：
 
